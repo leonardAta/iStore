@@ -1,5 +1,5 @@
 <?
-$pdo = new PDO ('mysql:host=localhost;dbname=i', "root", "root");
+$pdo = new PDO ('mysql:host=localhost;dbname=iBook', "root", "root");
 
 
 ?>
