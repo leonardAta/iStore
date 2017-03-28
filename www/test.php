@@ -22,18 +22,41 @@ try {
 #max file size
 define("MAX-FILE-SIZE", "2097152");
 
+#allowed extension
+$ext = ["image/jpg", "image/jpeg", "image/png"];
+
 if(array_key_exists('save', $_POST)) {
 	$errors = [];
 	#to be sure a file was selected..
 	#print_r($_FILES);
 	if(empty($_FILES['pic']['name'])) {
-		$errors['pic'] = "please choose a file";
+		$errors[] = "please choose a file";
 	}
 
 	#check file size
-	if($_FILES['pic']['size'] > MAX_FILE_SIZE) {
-		$errors['pic'] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+	if($_FILES['pic']['size'] > 2097152) {
+		$errors[] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
 	}
+
+	#check extensions
+	if(!in_array($_FILES['pic']['type'], $ext)) {
+		$errors[] = "invalid file type";
+	}
+
+	#generate random number to append
+	$rnd = rand(0000000000, 9999999999);
+
+	#strip filename for spaces
+	$strip_name = str_replace(" ", "_", $_FILES['pic']['name']);
+
+	$filename = $rnd.$strip_name;
+	$destination = 'uploads/'.$filename;
+	print_r($destination);
+
+	if(!copy($_FILES['pic']['tmp_name'], 'uploads/'.$filename)) {
+		$errors[] = "file upload failed";
+	}
+
 
 	if(empty($errors)) {
 		echo "done";
