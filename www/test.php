@@ -19,8 +19,29 @@ try {
 }
 */
 
+#max file size
+define("MAX-FILE-SIZE", "2097152");
+
 if(array_key_exists('save', $_POST)) {
-	print_r($_FILES);
+	$errors = [];
+	#to be sure a file was selected..
+	#print_r($_FILES);
+	if(empty($_FILES['pic']['name'])) {
+		$errors['pic'] = "please choose a file";
+	}
+
+	#check file size
+	if($_FILES['pic']['size'] > MAX_FILE_SIZE) {
+		$errors['pic'] = "file size exceeds maximum. maximum: ". MAX_FILE_SIZE;
+	}
+
+	if(empty($errors)) {
+		echo "done";
+	} else {
+		foreach($errors as $err) {
+			echo $err. '</br>';
+		}
+	}
 }
 
 
