@@ -1,3 +1,9 @@
+<?php
+	# include title
+	$page_title = "Log in"
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
