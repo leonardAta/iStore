@@ -1,4 +1,4 @@
-<?php
+<?php # test.php sandbox
 
 define('DBNAME', 'iBook');
 define('DBUSER', 'root');

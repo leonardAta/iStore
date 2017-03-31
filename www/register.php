@@ -2,7 +2,12 @@
 	
 	#include title
 	$page_title = "Register";
-	
+
+	# load db connection
+	include 'includes/db.php';	
+
+	# include functions
+	include 'includes/functions.php';
 
 	#include header
 	include 'includes/header.php';
@@ -32,7 +37,11 @@
 			$errors['pword'] = "passwords do not match";
 		if(empty($errors)) {
 			# do database stuff
-		
+			# eliminate unwanted spaces from values in the $_POST array
+			$clean = array_map('trim', $_POST);
+
+			# register Admin
+			doAdminRegister($conn, $clean);
 			
 		}
 
