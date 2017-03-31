@@ -28,6 +28,9 @@
 		if(empty($_POST['email'])) {
 			$errors['email'] = "please enter email";
 		}
+		if(doesEmailExist($conn, $_POST['email'])) {
+			$errors['email'] = "email already exists";
+		}
 		# validate password
 		if(empty($_POST['password'])) {
 			$errors['password'] = "please enter password";
