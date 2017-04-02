@@ -37,3 +37,10 @@
 		return $result;
 
 	}
+
+	function displayErrors($show, $pass) {
+		if(isset($show[$pass])) {
+			echo '<span class="err">'.$show[$pass].'</span>';
+			return true;
+		}
+	}

@@ -12,9 +12,10 @@
 	#include header
 	include 'includes/header.php';
 
+	$errors = [];
 	if(array_key_exists('register', $_POST)) {
 		# cache errors
-		$errors = [];
+		
 
 		# validate first name
 		if(empty($_POST['fname'])) {
@@ -58,14 +59,14 @@
 		<form id="register"  action="register.php" method="POST">
 			<div>
 				<?php
-					if(isset($errors['fname'])) { echo '<span class="err">'.$errors['fname']. '</span>'; }
+					displayErrors($errors, 'fname');
 				?>
 				<label>first name:</label>
 				<input type="text" name="fname" placeholder="first name">
 			</div>
 			<div>
 				<?php
-					if(isset($errors['lname'])) { echo '<span class="err">'.$errors['lname']. '</span>'; }
+					displayErrors($errors, 'lname');
 				?>
 				<label>last name:</label>	
 				<input type="text" name="lname" placeholder="last name">
@@ -73,14 +74,14 @@
 
 			<div>
 				<?php
-					if(isset($errors['email'])) { echo '<span class="err">'.$errors['email']. '</span>'; }
+					displayErrors($errors, 'email');
 				?>
 				<label>email:</label>
 				<input type="text" name="email" placeholder="email">
 			</div>
 			<div>
 				<?php
-					if(isset($errors['password'])) { echo '<span class="err">'.$errors['password']. '</span>'; }
+					displayErrors($errors, 'password');
 				?>
 				<label>password:</label>
 				<input type="password" name="password" placeholder="password">
@@ -88,7 +89,7 @@
  
 			<div>
 				<?php
-					if(isset($errors['pword'])) { echo '<span class="err">'.$errors['pword']. '</span>'; }
+					displayErrors($errors, 'pword');
 				?>
 				<label>confirm password:</label>	
 				<input type="password" name="pword" placeholder="password">
