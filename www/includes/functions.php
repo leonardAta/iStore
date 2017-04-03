@@ -61,7 +61,7 @@
 				$_SESSION['id'] = $row['Admin'];
 				$_SESSION['email'] = $row['email'];
 
-				header('Location:home.php');
+				header('Location:category.php');
 			}
 			else {
 				$error_login = "incorrect email and/or password";
