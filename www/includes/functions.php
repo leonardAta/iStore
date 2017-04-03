@@ -44,3 +44,34 @@
 			return true;
 		}
 	}
+
+	function doAdminLogin($dbconn, $enter) {
+		#insert data
+		$statement = $dbconn->prepare("SELECT * FROM Admin where email=:e");
+
+		#bind parameters
+		$statement->bindParam(":e", $enter['email']);
+		$statement->execute();
+
+		$count = $statement->rowCount();
+
+		if($count == 1) {
+			$row = $statement->fetch(PDO::FETCH_ASSOC);
+			if(password_verify($enter['password'], $row['hash'])) {
+				$_SESSION['id'] = $row['Admin'];
+				$_SESSION['email'] = $row['email'];
+
+				header('Location:home.php');
+			}
+			else {
+				$error_login = "incorrect email and/or password";
+				header("Location:login.php?error_login=$error_login");
+			}
+		} 
+	}
+
+
+
+
+
+

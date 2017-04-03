@@ -12,9 +12,11 @@
 	#include header
 	include 'includes/header.php';
 
+	# cache errors
 	$errors = [];
+
 	if(array_key_exists('register', $_POST)) {
-		# cache errors
+
 		
 
 		# validate first name

@@ -1,10 +1,38 @@
 <?php
+	ob_start();
+	session_start();
+
 	# include title
-	$page_title = "Log in"
+	$page_title = "Log in";
+	# include header
+	#include 'includes/header.php';
+	# include database
+	include 'includes/db.php';
+	# include functions
+	include 'includes/functions.php';
+
+
+	$errors = [];
+	if(array_key_exists('register', $_POST)) {
+
+		if(empty($_POST['email'])) {
+			$errors['email'] = "please enter email";
+		}
+		if(empty($_POST['password'])) {
+			$errors['password'] = "please enter password";
+		}
+		if(empty($errors)) {
+			#do database stuff
+			#eliminate unwanted spaces from values in the $_POST array
+			$clean = array_map('trim', $_POST);
+
+			doAdminLogin($conn, $clean);
+		}
+	}
 
 ?>
 
-<!DOCTYPE html>
+
 <html>
 <head>
 	<title><?php echo $page_title; ?></title>
@@ -22,10 +50,16 @@
 		<hr>
 		<form id="register"  action ="login.php" method ="POST">
 			<div>
+				<?php
+					displayErrors($errors, 'email');
+				?>
 				<label>email:</label>
 				<input type="text" name="email" placeholder="email">
 			</div>
 			<div>
+				<?php
+					displayErrors($errors, 'password');
+				?>
 				<label>password:</label>
 				<input type="password" name="password" placeholder="password">
 			</div>
