@@ -69,6 +69,17 @@
 			}
 		} 
 	}
+/*
+	function addCategory($conn, $add) {
+
+		$stmt = $conn->prepare("INSERT INTO Category(category_name) VALUES(:c)");
+
+		#bind params
+		$stmt->bindParam(":c", $add['Category']);
+		$category_name = 'category_name';
+		
+		$stmt->execute();
+	}
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add Category</title>
+	<title>TEST</title>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
@@ -11,7 +11,7 @@
 			<h1>T<span>SSB</span></h1>
 			<nav>
 				<ul class="clearfix">
-					<li><a href="#" class="selected">add posts</a></li>
+					<li><a href="category.php" class="selected">CATEGORY</a></li>
 					<li><a href="#">view posts</a></li>
 					<li><a href="#">logout</a></li>
 				</ul>
@@ -23,8 +23,8 @@
 			<table id="tab">
 				<thead>
 					<tr>
-						<th>title</th>
-						<th>author</th>
+						<th>post title</th>
+						<th>post author</th>
 						<th>date created</th>
 						<th>edit</th>
 						<th>delete</th>
