@@ -1,7 +1,18 @@
-<!DOCTYPE html>
+<?php
+
+# load db connection
+	include 'includes/db.php';	
+# include functions
+	include 'includes/functions.php';
+
+	#include header
+	include 'includes/header.php';
+?>
+
+
 <html>
 <head>
-	<title>TEST</title>
+	<title>View iBook</title>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
@@ -12,7 +23,7 @@
 			<nav>
 				<ul class="clearfix">
 					<li><a href="category.php" class="selected">CATEGORY</a></li>
-					<li><a href="#">view posts</a></li>
+					<li><a href="product.php">PRODUCTS</a></li>
 					<li><a href="#">logout</a></li>
 				</ul>
 			</nav>
@@ -23,14 +34,24 @@
 			<table id="tab">
 				<thead>
 					<tr>
-						<th>post title</th>
-						<th>post author</th>
-						<th>date created</th>
-						<th>edit</th>
-						<th>delete</th>
+						<th>Category ID</th>
+						<th>Category Name</th>
+						<th>Edit</th>
+						<th>Delete</th>
+						
 					</tr>
+
+					<?php
+
+						$stmt = $conn->prepare("SELECT * FROM Category");
+						$stmt->execute();
+						$viewCat = viewCategory($stmt);
+						echo $viewCat;
+
+
+					?>
 				</thead>
-				<tbody>
+			<!--	<tbody>
 					<tr>
 						<td>the knowledge gap</td>
 						<td>maja</td>
@@ -38,7 +59,7 @@
 						<td><a href="#">edit</a></td>
 						<td><a href="#">delete</a></td>
 					</tr>
-          		</tbody>
+          		</tbody> -->
 			</table>
 		</div>
 

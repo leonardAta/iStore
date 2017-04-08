@@ -80,6 +80,20 @@
 		
 		$stmt->execute();
 	}
+	*/
+	function viewCategory($view) {
+		$result = "";
+		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
+			$catID = $return['category_id'];
+			$catName = $return['category_name'];
+
+			$result .= '<tr><td>'.$return['category_id'].'</td>';
+			$result .= '<td>'.$return['category_name'].'</td>';
+			$result .= "<td><a href='viewCategory.php?action=edit&category_id=$catID&category_name=$catName'>edit </a></td>";
+			$result .= "<td><a href='viewCategory.php?del=delete&category_id=$catID'>delete</a></td><tr>";
+		}
+		return $result;
+	}
 
 
 

@@ -35,6 +35,8 @@
 
 	/*addCategory($conn, $category_name);
 */
+	$errors = [];
+	
 	if(array_key_exists('add', $_POST)) {
 		if(empty($_POST['category_name'])) {
 			$errors['category_name'] = "Enter Product Category Name";
