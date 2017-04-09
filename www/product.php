@@ -1,7 +1,7 @@
 <?php
 	ob_start();
 	session_start();
-
+	$page_title = "Add Product";
 	# load db connection
 	include 'includes/db.php';	
 
@@ -27,10 +27,7 @@
 		if(empty($_POST['Author'])) {
 			$errors['Author'] = "Enter Author";
 		}
-	/*	if(empty($_POST['Category'])) {
-			$errors['Category_id'] = "Enter Category ID";
-		}
-	*/
+	
 		if(empty($_POST['Price'])) {
 			$errors['Price'] = "Enter Price";
 		}
@@ -40,9 +37,9 @@
 		if(empty($_POST['ISBN'])) {
 			$errors['ISBN'] = "Enter ISBN";
 		}
-		if(empty($_FILES['pic']['name'])) {
-			$errors['pic'] = "Please select a file";
-		}
+		#if(empty($_FILES['pic']['name'])) {
+		#	$errors['pic'] = "Please select a file";
+		#}
 		#if($_FILES['pic']['size'] > MAX_FILE_SIZE) {
 		#	$errors['pic'] = "File size exceeds maximum. maximum".MAX_FILE_SIZE;
 		#}
@@ -67,6 +64,7 @@
 			$data = [
 					':t' => $clean['Title'],
 					':a' => $clean['Author'],
+			#		':ci' => $clean['Category_id'],
 					':p' => $clean['Price'],
 					':y' => $clean['Year_of_Publication'],
 					':i' => $clean['ISBN']
@@ -82,24 +80,24 @@
 ?>
 
 
-<!DOCTYPE html>
+
 <html>
 <head>
-	<title>Add Product</title>
+	<title><?echo $page_title ?></title>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
 <body>
 
 	<form id="register" method="post" action="product.php">
-		<input type="text" name="Title" placeholder="Book Title">
-		<input type="text" name="Author" placeholder="Author">
+		<input type="text" name="Title" placeholder="Book Title"/>
+		<input type="text" name="Author" placeholder="Author"/>
 	<!--	<input type="text" name="Category_id" placeholder="Category ID"> -->
-		<input type="text" name="Price" placeholder="Price">
-		<input type="text" name="Year_of_Publication" placeholder="Year of Publication">
-		<input type="text" name="ISBN" placeholder="ISBN">
+		<input type="text" name="Price" placeholder="Price"/>
+		<input type="text" name="Year_of_Publication" placeholder="Year of Publication"/>
+		<input type="text" name="ISBN" placeholder="ISBN"/>
 	<!--	<input type="file" name="pic"/> -->
-		<input type="submit" name="add" value="add">
+		<input type="submit" name="add" value="add"/>
 	</form>
 	<hr/>
 	<div class="wrapper">
@@ -136,7 +134,9 @@
 
 	<section class="foot">
 		<div>
-			<p>&copy; 2016;
+			<?php
+			include 'includes/footer.php'; 
+			?>
 		</div>
 	</section>
 </body>

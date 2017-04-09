@@ -1,4 +1,6 @@
 <?php
+	ob_start();
+	session_start();
 
 # load db connection
 	include 'includes/db.php';	
@@ -52,6 +54,7 @@
 
 
 					?>
+
 				</thead>
 			<!--	<tbody>
 					<tr>
@@ -62,10 +65,12 @@
 						<td><a href="#">delete</a></td>
 					</tr>
           		</tbody> -->
+
 			</table>
 		</div>
 
 		<div class="paginated">
+			<a href="product.php">Add Products</a>
 			<a href="#">1</a>
 			<a href="#">2</a>
 			<span>3</span>

@@ -2,6 +2,7 @@
 	ob_start();
 	session_start();
 
+	$page_title = "Add Category";
 	# load db connection
 	include 'includes/db.php';	
 
@@ -120,7 +121,9 @@
 
 	<section class="foot">
 		<div>
-			<p>&copy; 2016;
+			<?php
+			include "includes/footer.php";
+			?>
 		</div>
 	</section>
 </body>

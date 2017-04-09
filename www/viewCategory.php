@@ -24,8 +24,8 @@
 			<h1>T<span>SSB</span></h1>
 			<nav>
 				<ul class="clearfix">
-					<li><a href="category.php" class="selected">CATEGORY</a></li>
-					<li><a href="product.php">PRODUCTS</a></li>
+					<li><a href="viewcategory.php" class="selected">CATEGORY</a></li>
+					<li><a href="viewproduct.php">PRODUCTS</a></li>
 					<li><a href="logout.php">logout</a></li>
 				</ul>
 			</nav>
@@ -66,6 +66,7 @@
 		</div>
 
 		<div class="paginated">
+			<a href="category.php">Add Category</a>
 			<a href="#">1</a>
 			<a href="#">2</a>
 			<span>3</span>
