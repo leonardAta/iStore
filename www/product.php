@@ -98,7 +98,7 @@
 		<input type="text" name="Price" placeholder="Price">
 		<input type="text" name="Year_of_Publication" placeholder="Year of Publication">
 		<input type="text" name="ISBN" placeholder="ISBN">
-		<input type="file" name="pic"/>
+	<!--	<input type="file" name="pic"/> -->
 		<input type="submit" name="add" value="add">
 	</form>
 	<hr/>

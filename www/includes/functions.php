@@ -94,7 +94,29 @@
 		}
 		return $result;
 	}
+	function viewProduct($view) {
+		$result = "";
+		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
+			$bookID = $return['Book_id'];
+			$title = $return['Title'];
+			$author = $return['Author'];
+			$price = $return['Price'];
+			$year = $return['Year_of_Publication'];
+			$isbn = $return['ISBN'];
 
+			$result ="<tr>";
+			$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td><td>".$return['Author']."</td><td>".$return['Price']."</td><td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
+			$result .= "</tr>";
+		}
+		return $result;
+	}
+
+	function deleteCat($conn, $all ) {
+		$stmt = $conn->prepare("DELETE FROM Category WHERE Book_id= :c");
+		$stmt->bindParam(":c", $all);
+		$stmt->execute();
+		redirect("viewCategory.php");
+	}
 
 
 

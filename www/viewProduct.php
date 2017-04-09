@@ -1,7 +1,5 @@
 <?php
 
-	ob_start();
-	session_start();
 # load db connection
 	include 'includes/db.php';	
 # include functions
@@ -14,7 +12,7 @@
 
 <html>
 <head>
-	<title>View iBook</title>
+	<title>View Product</title>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
@@ -24,9 +22,9 @@
 			<h1>T<span>SSB</span></h1>
 			<nav>
 				<ul class="clearfix">
-					<li><a href="category.php" class="selected">CATEGORY</a></li>
-					<li><a href="product.php">PRODUCTS</a></li>
-					<li><a href="logout.php">logout</a></li>
+					<li><a href="category.php">CATEGORY</a></li>
+					<li><a href="product.php"class="selected">PRODUCTS</a></li>
+					<li><a href="#">logout</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -36,32 +34,34 @@
 			<table id="tab">
 				<thead>
 					<tr>
-						<th>Category ID</th>
-						<th>Category Name</th>
-						<th>Edit</th>
-						<th>Delete</th>
+						<th>Book ID</th>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Price</th>
+						<th>Year of Publication</th>
+						<th>ISBN</th>
 						
 					</tr>
 
 					<?php
 
-						$stmt = $conn->prepare("SELECT * FROM Category");
+						$stmt = $conn->prepare("SELECT * FROM Books");
 						$stmt->execute();
-						$viewCat = viewCategory($stmt);
-						echo $viewCat;
+						$viewProduct = viewProduct($stmt);
+						echo $viewProduct;
 
 
 					?>
 				</thead>
-				<tbody>
+			<!--	<tbody>
 					<tr>
-					<!--	<td>the knowledge gap</td>
+						<td>the knowledge gap</td>
 						<td>maja</td>
 						<td>January, 10</td>
-						<td><a href="#">edit</a></td> 
-						<td><a href="delCat.php">delete</a></td>
-					</tr> -->
-          		</tbody>
+						<td><a href="#">edit</a></td>
+						<td><a href="#">delete</a></td>
+					</tr>
+          		</tbody> -->
 			</table>
 		</div>
 
