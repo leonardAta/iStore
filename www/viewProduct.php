@@ -24,9 +24,9 @@
 			<h1>T<span>SSB</span></h1>
 			<nav>
 				<ul class="clearfix">
-					<li><a href="category.php">CATEGORY</a></li>
+					<li><a href="viewcategory.php">CATEGORY</a></li>
 					<li><a href="product.php"class="selected">PRODUCTS</a></li>
-					<li><a href="#">logout</a></li>
+					<li><a href="logout.php">LOGOUT</a></li>
 				</ul>
 			</nav>
 		</div>

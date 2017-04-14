@@ -118,6 +118,23 @@
 		redirect("viewCategory.php");
 	}
 
+	function doUpload($files, $names, $uploadir) {
+		$data = [];
+		$rnd = rand(0000000000, 9999999999);
+
+	$strip_name = str_replace(" ", "_", $files[$names]['name']);
+	$filename = $rnd.$strip_name;
+	$destination = $uploadir.$filename;
+
+	if(!move_uploaded_file($files[$names]['tmp_name'], $destination)) {
+		$data[] = false;
+	} else {
+		$data[] = true;
+		$data[] = $destination;
+	}
+		return $data;
+	}
+
 
 
 
