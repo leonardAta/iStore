@@ -100,6 +100,10 @@
 		<input type="text" name="Year_of_Publication" placeholder="Year of Publication"/>
 		<input type="text" name="ISBN" placeholder="ISBN"/>
 		<input type="file" name="pic"/>
+		<select>
+			<option value="Trending" name="Trending">Trending</option>
+			<option value="Top_Selling"name="Top_Selling">Top Selling</option>
+		</select>
 		<input type="submit" name="add" value="add"/>
 	</form>
 	<hr/>
