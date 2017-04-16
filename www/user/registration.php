@@ -6,8 +6,11 @@ $page_title = "Registration";
 #load db connection
 include 'includes/database.php';
 
+#include functions
+include 'includes/functions.php';
+
 #include header
-#include 'includes/header.php';
+include 'includes/header.php';
 
 #cache errors
 $errors = [];
@@ -35,62 +38,59 @@ if(array_key_exists('register', $_POST)) {
 		$errors['password'] = "Enter password";
 	}
 	#validate confirm password
-	if($_POST["password"] != $_POST["pword"])
+	if($_POST["password"] != $_POST["pword"]) {
+		$errors["pword"] = "Passwords do not match";
+	}	
+	if(empty($errors)) {
+		#eliminate unwanted spaces from values in the $_POST array
+		$clean = array_map('trim', $_POST);
+		registerAdmin($conn, $clean);
+	}
 }
 ?>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="style/styles.css">
-    <title>Registration</title>
-</head>
 
-    <title><?php echo $page_title; ?></title>
+
 
 <body id="registration">
-  <!-- DO NOT TAMPER WITH CLASS NAMES! -->
-
-  <!-- top bar starts here -->
-  <div class="top-bar">
-    <div class="top-nav">
-      <a href="index.html"><h3 class="brand"><span>B</span>rain<span>F</span>ood</h3></a>
-      <ul class="top-nav-list">
-        <li class="top-nav-listItem Home"><a href="index.html">Home</a></li>
-        <li class="top-nav-listItem catalogue"><a href="catalogue.html">Catalogue</a></li>
-        <li class="top-nav-listItem login"><a href="login.html">Login</a></li>
-        <li class="top-nav-listItem register"><a href="registration.php">Register</a></li>
-        <li class="top-nav-listItem cart">
-          <div class="cart-item-indicator">
-            <p>12</p>
-          </div>
-          <a href="cart.html">Cart</a>
-        </li>
-      </ul>
-      <form class="search-brainfood">
-        <input type="text" class="text-field" placeholder="Search all books">
-      </form>
-    </div>
-  </div>
-  <!-- main content starts here -->
+  
   <div class="main">
     <div class="registration-form">
-      <form class="def-modal-form">
+
+      <form class="def-modal-form" action="registration.php" method="POST">
         <div class="cancel-icon close-form"></div>
         <label for="registration-from" class="header"><h3>User Registration</h3></label>
+        <?php
+        	if(isset($_GET['msg'])) {
+        		echo '<p class="form-error">'.$_GET['msg'].'</p>';
+        	}
+        ?> 
+        <?php displayErrors($errors, 'fname'); ?>
         <input type="text" class="text-field first-name" name="fname" placeholder="Firstname">
+       
+       	<?php displayErrors($errors, 'lname');?> 
         <input type="text" class="text-field last-name" name="lname" placeholder="Lastname">
+       
+        <?php displayErrors($errors, 'email');?>
         <input type="email" class="text-field email" name="email" placeholder="Email">
+        
+        <?php displayErrors($errors, 'username');?>
         <input type="text" class="text-field username" name="username" placeholder="Username">
+        
+        <?php displayErrors($errors, 'password');?>
         <input type="password" class="text-field password" name="password" placeholder="Password">
+        
+        <?php displayErrors($errors, 'pword');?>
         <input type="password" class="text-field confirm-password" name="pword" placeholder="Confirm Password">
-        <input type="submit" class="def-button" value="register">
+        <?php displayErrors($errors, 'pword');?>
+        <input type="submit" class="def-button" name="register" value="Register">
         <p class="login-option">Have an account already? Login</p>
       </form>
     </div>
   </div>
   <!-- footer starts here-->
-  <div class="footer">
-    <p class="copyright">&copy; copyright 2016</p>
-  </div>
+  
+    <?php 
+    	include 'includes/footer.php';
+    ?>
+
 </body>
-</html>
