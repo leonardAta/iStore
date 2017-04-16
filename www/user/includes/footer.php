@@ -1,8 +1,5 @@
-<html>
-<section class="foot">
-		<div>
-			<p>&copy; 2017;
-		</div>
-	</section>
+<div class="footer">
+    <p class="copyright">&copy; copyright 2017</p>
+  </div>
 </body>
 </html>

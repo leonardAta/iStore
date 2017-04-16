@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title><?php echo $page_title; ?></title>
-	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
-</head>
-<body>
-	<section>
-		<div class="mast">
-			<h1>T<span>SSB</span></h1>
-		</div>
-	</section>
+
+	<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style/styles.css">
+    <title><?php echo $page_title?></title>
+	</head>
