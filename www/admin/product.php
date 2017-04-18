@@ -19,7 +19,7 @@
 
 		#max file size
 		define("MAX_FILE_SIZE", "2097152");
-		$ext = ["image/jpeg", "image/jpeg", "image/png"];
+		$ext = ["image/jpeg", "image/jpg", "image/png"];
 
 		if(empty($_POST['Title'])) {
 			$errors['Title'] = "Enter Title";

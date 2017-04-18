@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+<?php
+
+?>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="style/styles.css">
@@ -32,10 +33,11 @@
   <!-- main content starts here -->
   <div class="main">
     <div class="book-display">
-      <div class="display-book"></div> <!-- <style="background: url('../img/big.jpg');
+      <div class="display-book"></div>  
+      <style="background: url('../img/big.jpg');
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;"></style>-->
+      background-repeat: no-repeat;"></style>
       <div class="info">
         <h2 class="book-title">Eloquent Javascript</h2>
         <h3 class="book-author">by Marijn Haverbeke</h3>
@@ -95,8 +97,8 @@
 
   </div>
   <!-- footer starts here-->
-  <div class="footer">
-    <p class="copyright">&copy; copyright 2016</p>
-  </div>
+  <?php 
+    include 'includes/footer.php';
+  ?>
 </body>
-</html>
+
