@@ -13,16 +13,16 @@
 
 
 	#include header
-	include 'includes/header.php';
+	include 'includes/dashboard_header.php';
 
 	
 	#get request with id
-	if(isset($_GET['Category_id'])) {
-		$catID = $_GET['Category_id'];
+	if(isset($_GET['category_id'])) {
+		$catID = $_GET['category_id'];
 	}
 
 	#call delete function
-	deleteCat($conn, $catID);
+	deleteCategory($conn, $catID);
 
 	#redirect 
 	redirect('viewCategory.php', "");

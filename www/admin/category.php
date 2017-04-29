@@ -46,7 +46,6 @@
 
 			<div>
 
-
 				<label>Category Name: </label>
 
 				<?php displayErrors($errors, 'category_name'); ?>

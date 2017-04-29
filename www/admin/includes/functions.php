@@ -104,7 +104,7 @@
 			$result .= '<tr><td>'.$return['category_id'].'</td>';
 			$result .= '<td>'.$return['category_name'].'</td>';
 			$result .= '<td><a href="editCategory.php?category_id='.$return['category_id'].'">edit</a></td>';
-			$result .= '<td><a href="deleteCategory.php?category_id='.$return['category_id'].'">delete</a></td><tr>';
+			$result .= '<td><a href="deleteCategory.php?category_id='.$return['category_id'].'">delete</a></td></tr>';
 		}
 		return $result;
 	}
@@ -134,12 +134,13 @@
 	}
 
 
-
-
-	function viewProduct($view) {
+	function viewProduct($dbconn) {
 		$result = "";
 
-		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
+		$stmt = $dbconn->prepare("SELECT * FROM Books");
+		$stmt->execute();
+
+		while($return = $stmt->fetch(PDO::FETCH_BOTH)) {
 				$bookID = $return['Book_id'];
 				$title = $return['Title'];
 				$author = $return['Author'];
@@ -148,19 +149,22 @@
 				$isbn = $return['ISBN'];
 
 				$result ="<tr>";
-				$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td><td>".$return['Author']."</td><td>".$return['Price']."</td><td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
+				$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td>
+							<td>".$return['Author']."</td><td>".$return['Price']."</td>
+							<td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
+				$result .='<td><a href="editProduct.php?category_id='.$return[0].'">edit</a></td>';
+				$result .='<td><a href="deleteProduct.php?category_id='.$return[0].'">delete</a></td></tr>';			
 				$result .= "</tr>";
 		}
 		return $result;
 	}
 
-	function deleteCat($dbconn, $all ) {
-		$stmt = $dbconn->prepare("DELETE FROM Category WHERE category_id= :cid");
-		$stmt->bindParam(":cid", $catID);
+	function deleteCategory($dbconn, $catid) {
+		$stmt = $dbconn->prepare("DELETE FROM Category WHERE category_id=:cid");
+		$stmt->bindParam(":cid", $catid);
 
 		$stmt->execute();
 
-		redirect("viewCategory.php");
 	}
 
 	function doUpload($files, $names, $uploadir) {
@@ -180,6 +184,19 @@
 		return $data;
 	}
 
+	function getProductByID($dbconn, $pid) {
+		$stmt = $dbconn->prepare("SELECT * FROM Books WHERE Book_id=:bid");
+		$stmt->bindParam(":bid", $pid);
+
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_BOTH);
+
+		return $row;
+
+
+
+
+	}
 
 
 

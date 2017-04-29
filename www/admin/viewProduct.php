@@ -26,6 +26,8 @@
 						<th>Price</th>
 						<th>Year of Publication</th>
 						<th>ISBN</th>
+						<th>Edit</th>
+						<th>Delete</th>
 						
 					</tr>
 
@@ -35,31 +37,18 @@
 				<tbody>
 				<?php
 
-						$stmt = $conn->prepare("SELECT * FROM Books");
-						$stmt->execute();
-						$viewProduct = viewProduct($stmt);
+						$viewProduct = viewProduct($conn);
 						echo $viewProduct;
 
-
-					?>
+				?>
           		</tbody>
 
 			</table>
 		</div>
-
-		<div class="paginated">
-			<a href="product.php">Add Products</a>
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<span>3</span>
-			<a href="#">2</a>
-		</div>
 	</div>
 
-	<section class="foot">
-		<div>
-			<p>&copy; 2016;
-		</div>
-	</section>
-</body>
-</html>
+<?php
+
+	#include footer
+	include 'includes/footer.php';
+?>

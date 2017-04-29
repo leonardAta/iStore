@@ -22,7 +22,7 @@
 
 	#use Data Access Object
 	$item = getCategoryByID($conn, $catID);
-	//print_r($item); exit();
+	
 	#track errors
 	$errors = [];
 
