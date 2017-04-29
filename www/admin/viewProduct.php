@@ -2,35 +2,19 @@
 	ob_start();
 	session_start();
 
-# load db connection
+	$page_title = "View Product";
+
+	#load db connection
 	include 'includes/db.php';	
-# include functions
+	
+	#include functions
 	include 'includes/functions.php';
 
 	#include header
-	#include 'includes/header.php';
+	include 'includes/dashboard_header.php';
 ?>
 
 
-<html>
-<head>
-	<title>View Product</title>
-	<link rel="stylesheet" type="text/css" href="styles/styles.css">
-</head>
-
-<body>
-	<section>
-		<div class="mast">
-			<h1>T<span>SSB</span></h1>
-			<nav>
-				<ul class="clearfix">
-					<li><a href="viewcategory.php">CATEGORY</a></li>
-					<li><a href="product.php"class="selected">PRODUCTS</a></li>
-					<li><a href="logout.php">LOGOUT</a></li>
-				</ul>
-			</nav>
-		</div>
-	</section>
 	<div class="wrapper">
 		<div id="stream">
 			<table id="tab">
@@ -45,7 +29,11 @@
 						
 					</tr>
 
-					<?php
+					
+
+				</thead>
+				<tbody>
+				<?php
 
 						$stmt = $conn->prepare("SELECT * FROM Books");
 						$stmt->execute();
@@ -54,17 +42,7 @@
 
 
 					?>
-
-				</thead>
-			<!--	<tbody>
-					<tr>
-						<td>the knowledge gap</td>
-						<td>maja</td>
-						<td>January, 10</td>
-						<td><a href="#">edit</a></td>
-						<td><a href="#">delete</a></td>
-					</tr>
-          		</tbody> -->
+          		</tbody>
 
 			</table>
 		</div>

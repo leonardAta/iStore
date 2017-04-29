@@ -9,7 +9,7 @@
 	include 'includes/functions.php';
 
 	#include header
-	include 'includes/header.php';
+	include 'includes/dashboard_header.php';
 
 
 	$errors = [];
@@ -63,7 +63,7 @@
 			#eliminate unwanted spaces
 			$clean = array_map('trim', $_POST);
 			$stmt = $conn->prepare("INSERT INTO Books(Title, Author, Price, Year_of_Publication, ISBN, filepath) VALUES(:t, :a, :p, :y, :i, :f)");
-			#$stmt->bindParam(':t',':a', ':ci', ':p', ':y', ':i') $clean['Title', 'Author', 'Category_id', 'Price', 'Year_of_Publication', 'ISBN']);
+	
 			$data = [
 					':t' => $clean['Title'],
 					':a' => $clean['Author'],
@@ -75,6 +75,7 @@
 
 
 			];
+
 			$stmt->execute($data);
 
 		}
@@ -84,67 +85,46 @@
 
 
 
-<html>
-<head>
-	<title><?echo $page_title ?></title>
-	<link rel="stylesheet" type="text/css" href="styles/styles.css">
-</head>
+
 
 <body>
 
 	<form id="register" method="post" action="product.php" enctype="multipart/form-data">
-		<input type="text" name="Title" placeholder="Book Title"/>
-		<input type="text" name="Author" placeholder="Author"/>
+		<h1>Add Product</h1>
+		<hr/>
+
+		<label>Book Title:</label>
+		<input type="text" name="Title" placeholder="Book Title"/><br/>
+
+		<label>Author:</label>
+		<input type="text" name="Author" placeholder="Author"/><br/>
 	<!--	<input type="text" name="Category_id" placeholder="Category ID"> -->
-		<input type="text" name="Price" placeholder="Price"/>
-		<input type="text" name="Year_of_Publication" placeholder="Year of Publication"/>
-		<input type="text" name="ISBN" placeholder="ISBN"/>
-		<input type="file" name="pic"/>
+		
+		<label>Price:</label>
+		<input type="text" name="Price" placeholder="Price"/><br/>
+
+		<label>Year of Publication:</label>
+		<input type="text" name="Year_of_Publication" placeholder="Year of Publication"/><br/>
+
+		<label>ISBN:</label>
+		<input type="text" name="ISBN" placeholder="ISBN"/><br/>
+
+		<label>Image:</label>
+		<input type="file" name="pic"/><br/>
+
+		<label>Option:</label>
 		<select>
 			<option value="Trending" name="Trending">Trending</option>
 			<option value="Top_Selling"name="Top_Selling">Top Selling</option>
-		</select>
+			
+		</select><br/>
 		<input type="submit" name="add" value="add"/>
 	</form>
 	<hr/>
 	<div class="wrapper">
 		<div id="stream">
-		<!--	<table id="tab">
-				<thead>
-					<tr>
-						<th>title</th>
-						<th>author</th>
-						<th>date created</th>
-						<th>edit</th>
-						<th>delete</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>the knowledge gap</td>
-						<td>maja</td>
-						<td>January, 10</td>
-						<td><a href="#">edit</a></td>
-						<td><a href="#">delete</a></td>
-					</tr>
-          		</tbody>
-			</table>	-->
-		</div>
 
-	<!--	<div class="paginated">
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<span>3</span>
-			<a href="#">2</a>
-		</div>
-	</div>	-->
 
-	<section class="foot">
-		<div>
-			<?php
-			include 'includes/footer.php'; 
-			?>
-		</div>
-	</section>
-</body>
-</html>
+<?php
+	include 'includes/footer.php'; 
+?>

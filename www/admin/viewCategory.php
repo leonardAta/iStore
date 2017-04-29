@@ -2,35 +2,23 @@
 
 	ob_start();
 	session_start();
-# load db connection
-	include 'includes/db.php';	
-# include functions
+
+	# load db connection
+	include 'includes/db.php';
+
+	#page title
+	$page_title = "View Category";
+
+	# include functions
 	include 'includes/functions.php';
 
 	#include header
-	#include 'includes/header.php';
+	include 'includes/dashboard_header.php';
+	
 ?>
 
 
-<html>
-<head>
-	<title>View iBook</title>
-	<link rel="stylesheet" type="text/css" href="styles/styles.css">
-</head>
 
-<body>
-	<section>
-		<div class="mast">
-			<h1>T<span>SSB</span></h1>
-			<nav>
-				<ul class="clearfix">
-					<li><a href="viewcategory.php" class="selected">CATEGORY</a></li>
-					<li><a href="viewproduct.php">PRODUCTS</a></li>
-					<li><a href="logout.php">logout</a></li>
-				</ul>
-			</nav>
-		</div>
-	</section>
 	<div class="wrapper">
 		<div id="stream">
 			<table id="tab">
@@ -43,6 +31,9 @@
 						
 					</tr>
 
+	
+				</thead>
+				<tbody>
 					<?php
 
 						$stmt = $conn->prepare("SELECT * FROM Category");
@@ -51,16 +42,7 @@
 						echo $viewCat;
 
 
-					?>
-				</thead>
-				<tbody>
-					<tr>
-					<!--	<td>the knowledge gap</td>
-						<td>maja</td>
-						<td>January, 10</td>
-						<td><a href="#">edit</a></td> 
-						<td><a href="delCat.php">delete</a></td>
-					</tr> -->
+					?> 
           		</tbody>
 			</table>
 		</div>
@@ -73,11 +55,7 @@
 			<a href="#">2</a>
 		</div>
 	</div>
-
-	<section class="foot">
-		<div>
-			<p>&copy; 2016;
-		</div>
-	</section>
-</body>
-</html>
+<?php
+	#include footer
+	include 'includes/footer.php';
+?>

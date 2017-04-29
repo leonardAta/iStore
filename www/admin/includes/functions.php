@@ -1,8 +1,13 @@
 <?php
-	function doAdminRegister($dbconn, $input) {
-		# hash the password
-		$hash = password_hash($input['password'], PASSWORD_BCRYPT);
 
+	function checkLogin() {
+		if(!isset($_SESSION['admin_id'])) {
+			redirect("login.php", "");
+		}
+	}
+
+
+	function doAdminRegister($dbconn, $input) {
 		# insert data
 		$stmt = $dbconn->prepare("INSERT INTO Admin(firstname, lastname, email, hash) VALUES(:fn, :ln, :e, :h )");
 
@@ -11,7 +16,7 @@
 			':fn' => $input['fname'],
 			':ln' => $input['lname'],
 			':e' => $input['email'],
-			':h' => $hash
+			':h' => $input['password']
 
 		];
 
@@ -30,17 +35,15 @@
 		# get number of rows returned
 		$count = $stmt->rowCount();
 
-		if($count > 0) {
-			$result = true;
-		}
+		if($count > 0) { $result = true; }
 
 		return $result;
 
 	}
 
-	function displayErrors($show, $pass) {
-		if(isset($show[$pass])) {
-			echo '<span class="err">'.$show[$pass].'</span>';
+	function displayErrors($array, $key) {
+		if(isset($array[$key])) {
+			echo '<span class="err">'.$array[$key].'</span>';
 			return true;
 		}
 	}
@@ -54,6 +57,7 @@
 		$statement->execute();
 
 		$count = $statement->rowCount();
+		
 
 		if($count == 1) {
 			$row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +65,7 @@
 				$_SESSION['id'] = $row['Admin'];
 				$_SESSION['email'] = $row['email'];
 
-				header('Location:category.php');
+				header('Location:viewcategory.php');
 			}
 			else {
 				$error_login = "incorrect email and/or password";
@@ -69,18 +73,28 @@
 			}
 		} 
 	}
-/*
-	function addCategory($conn, $add) {
 
-		$stmt = $conn->prepare("INSERT INTO Category(category_name) VALUES(:c)");
+	function redirect($loc, $msg) {
+		header("Location: ".$loc.$msg);
+	}
 
-		#bind params
-		$stmt->bindParam(":c", $add['Category']);
-		$category_name = 'category_name';
-		
+
+	function addCategory($dbconn, $add) {
+		$stmt = $dbconn->prepare("INSERT INTO Category(category_name) VALUES(:c)");
+		$stmt->bindParam(":c", $add['category_name']);
+
 		$stmt->execute();
 	}
-	*/
+
+	function fetchCategory($dbconn) {
+		$result = "";
+
+		$stmt = $dbconn->prepare("SELECT * FROM Category");
+		$stmt->execute();
+
+		return $result;
+	}
+
 	function viewCategory($view) {
 		$result = "";
 		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
@@ -89,32 +103,63 @@
 
 			$result .= '<tr><td>'.$return['category_id'].'</td>';
 			$result .= '<td>'.$return['category_name'].'</td>';
-			$result .= "<td><a href='viewCategory.php?action=edit&category_id=$catID&category_name=$catName'>edit </a></td>";
-			$result .= "<td><a href='viewCategory.php?del=delete&category_id=$catID'>delete</a></td><tr>";
+			$result .= '<td><a href="editCategory.php?category_id='.$return['category_id'].'">edit</a></td>';
+			$result .= '<td><a href="deleteCategory.php?category_id='.$return['category_id'].'">delete</a></td><tr>';
 		}
 		return $result;
 	}
+
+	function getCategoryByID($dbconn, $cat_id) {
+
+		$stmt = $dbconn->prepare("SELECT * FROM Category WHERE category_id=:cid");
+		$stmt->bindParam(":cid", $cat_id);
+		$stmt->execute();
+
+		$row = $stmt->fetch(PDO::FETCH_BOTH);
+
+		return $row;
+
+	}
+
+	function updateCategory($dbconn, $input) {
+		$stmt = $dbconn->prepare("UPDATE Category SET category_name=:name WHERE category_id=:catid");
+
+		$data = [
+					":name"=>$input['cat_name'],
+					":catid"=>$input['cid']
+
+
+		];
+		$stmt->execute($data);
+	}
+
+
+
+
 	function viewProduct($view) {
 		$result = "";
-		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
-			$bookID = $return['Book_id'];
-			$title = $return['Title'];
-			$author = $return['Author'];
-			$price = $return['Price'];
-			$year = $return['Year_of_Publication'];
-			$isbn = $return['ISBN'];
 
-			$result ="<tr>";
-			$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td><td>".$return['Author']."</td><td>".$return['Price']."</td><td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
-			$result .= "</tr>";
+		while($return = $view->fetch(PDO::FETCH_ASSOC)) {
+				$bookID = $return['Book_id'];
+				$title = $return['Title'];
+				$author = $return['Author'];
+				$price = $return['Price'];
+				$year = $return['Year_of_Publication'];
+				$isbn = $return['ISBN'];
+
+				$result ="<tr>";
+				$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td><td>".$return['Author']."</td><td>".$return['Price']."</td><td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
+				$result .= "</tr>";
 		}
 		return $result;
 	}
 
-	function deleteCat($conn, $all ) {
-		$stmt = $conn->prepare("DELETE FROM Category WHERE Book_id= :c");
-		$stmt->bindParam(":c", $all);
+	function deleteCat($dbconn, $all ) {
+		$stmt = $dbconn->prepare("DELETE FROM Category WHERE category_id= :cid");
+		$stmt->bindParam(":cid", $catID);
+
 		$stmt->execute();
+
 		redirect("viewCategory.php");
 	}
 
