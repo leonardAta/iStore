@@ -2,21 +2,21 @@
 	ob_start();
 	session_start();
 
+	# include functions
+	include 'includes/functions.php';
+
 	#add page title
 	$page_title = "Edit Product";
 
 	# load db connection
 	include 'includes/db.php';	
 
-	# include functions
-	include 'includes/functions.php';
-
 	#include header
 	include 'includes/dashboard_header.php';
 
 	#query string incoming request
-	if(isset($_GET['bid'])) {
-		$bookID = $_GET['bid'];
+	if(isset($_GET['Book_id'])) {
+		$bookID = $_GET['Book_id'];
 	}
 
 	#get a product object
@@ -27,6 +27,8 @@
 
 	#track errors
 	$errors = [];
+
+
 
 	
 
@@ -78,7 +80,7 @@
 
 					<?php 
 
-						fetchCategory($conn, $category['Category_name'], function($stmt, $val) {
+					/*	fetchCategory($conn, $category['Category_name'], function($stmt, $val) {
 							$result = "";
 
 							while($row = $stmt->fetch(PDO::FETCH_BOTH)) {
@@ -91,8 +93,11 @@
 
 							echo $result;
 						});
+					*/
+					
+					$choose = fetchCategory($conn, $cat_name['Category_name']);
 
-
+					echo $choose;
 
 					?>
 
@@ -100,7 +105,7 @@
 			</div>
 
 
-				<input type="submit" name="add" value="add"/>
+				<input type="submit" name="" value="edit"/>
 
 			</form>
 

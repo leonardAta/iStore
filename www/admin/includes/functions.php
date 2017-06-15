@@ -86,13 +86,35 @@
 		$stmt->execute();
 	}
 
-	function fetchCategory($dbconn) {
+/*	function fetchCategory($dbconn, $any=null, $cb) {
+		#$result = "";
+		$stmt = $dbconn->prepare("SELECT * FROM Category");
+		$stmt->execute();
+
+		$cb($stmt, $any);
+		#return $result;
+	}
+*/
+
+	function fetchCategory($dbconn, $catName) {
 		$result = "";
 
 		$stmt = $dbconn->prepare("SELECT * FROM Category");
 		$stmt->execute();
 
-		return $result;
+		while($row=$stmt->fetch(PDO::FETCH_BOTH)) {
+			$cat_id = $row['category_id'];
+			$cat_name = $row['category_name'];
+
+			if($cat_name == $catName) {
+				continue;
+			}
+			$result .= "<option value='$cat_id'>$cat_name</option>";
+
+		}
+	return $result;	
+
+
 	}
 
 	function viewCategory($view) {
@@ -152,8 +174,8 @@
 				$result .= "<td>".$return['Book_id']."</td><td>".$return['Title']."</td>
 							<td>".$return['Author']."</td><td>".$return['Price']."</td>
 							<td>".$return['Year_of_Publication']."</td><td>".$return['ISBN']."</td>";
-				$result .='<td><a href="editProduct.php?category_id='.$return[0].'">edit</a></td>';
-				$result .='<td><a href="deleteProduct.php?category_id='.$return[0].'">delete</a></td></tr>';			
+				$result .='<td><a href="editProduct.php?Book_id='.$return['Book_id'].'">edit</a></td>';
+				$result .='<td><a href="deleteProduct.php?Book_id='.$return['Book_id'].'">delete</a></td></tr>';			
 				$result .= "</tr>";
 		}
 		return $result;
@@ -194,8 +216,13 @@
 		return $row;
 
 
+	}
 
+	function deleteProduct($dbconn, $bkid) {
+		$stmt = $dbconn->prepare("DELETE FROM Books WHERE Book_id=:bid");
+		$stmt->bindParam(":bid", $bkid);
 
+		$stmt->execute();
 	}
 
 

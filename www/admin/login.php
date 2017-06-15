@@ -38,7 +38,7 @@
 
 
 			#set sessions
-		#	$_SESSION['admin_id'] = $chk[1];
+		#	$_SESSION['id'] = $chk[1];
 
 			#redirect
 		#	header("Location:category.php");
